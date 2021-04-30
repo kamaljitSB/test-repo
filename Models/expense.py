@@ -14,12 +14,12 @@ class Expense:
     def create_from_dict(dict_):
         """Create a new Expense object from dict_
 
-        :param dict_: dictionary with "Category" and "Amount"
+        :param dict_: dictionary with "ID", "Category", "Amount", and "Date"
         :type dict_: dict
         :return: Expense object
         :rtype: Expense
         """
-        return Expense(ID=dict_["ID"], Category=dict_["Category"], Amount=float(dict_["Amount"]), Date=dict_["Date"])
+        return Expense(ID=int(dict_["ID"]), Category=dict_["Category"], Amount=float(dict_["Amount"]), Date=dict_["Date"])
         
 
     @staticmethod
@@ -29,7 +29,7 @@ class Expense:
         :return: list of field names of Expense object
         :rtype: list
         """
-        return ["Category", "Amount"]
+        return ["ID", "Category", "Amount", "Date"]
     
 
     def __init__(self, ID, Category, Amount, Date=TODAY):       
@@ -51,12 +51,12 @@ class Expense:
             raise ValueError("Invalid ID")
         if type(Category) is not str or not Category:
             raise ValueError("Invalid Category")
-        if type(Amount) is not float or Amount < 0:
+        if (not isinstance(Amount, int) and not isinstance(Amount, float)) or Amount <= 0:
             raise ValueError("Invalid Amount")
 
         self._ID = ID
         self._Category = Category
-        self._Amount = Amount
+        self._Amount = float(Amount)
         self._Date = Date
     
 
@@ -109,8 +109,9 @@ class Expense:
 
 ############################################
 if __name__ == "__main__":
-    Expense1 = Expense(1, "Food", 123.4, "2021-05-06")
+    Expense1 = Expense(1, "Food", 12, "2021-05-06")
     Expense2 = Expense(2, "Clothes", 599.99, "2021-05-08")
 
+    print(Expense2.Amount)
     
     

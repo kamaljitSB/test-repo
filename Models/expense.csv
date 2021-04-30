@@ -1,3 +1,5 @@
-ID, Category, Amount, Date
-1, Food, 200, 2021-04-30
-2, Clothes, 50, 2021-05-01
+ID,Category,Amount,Date
+1,Food,123.4,2021-05-06
+20,Insurance,599.99,2021-04-08
+5,Entertainment,1.0,2022-05-06
+7,Car,5000.0,2021-05-08

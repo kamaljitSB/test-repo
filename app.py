@@ -1,5 +1,7 @@
 from flask import Flask, request, render_template
 import csv
+from Models.expense import Expense
+
 
 app = Flask(__name__)
 
