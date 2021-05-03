@@ -1,6 +1,7 @@
 from flask import Flask, request, render_template
 import csv
 from Models.expense import Expense
+from Models.expense_manager import ExpenseManager
 
 
 app = Flask(__name__)
@@ -11,7 +12,7 @@ def create_csv(name, balance):
             writer = csv.writer(f)
             rows = [name, balance]
 
-            fields = ["Name", "Balance"]
+            fields = ["Balance", "Budget"]
             
             # Writes fields and rows to csv
             writer.writerow(fields)
@@ -28,22 +29,35 @@ def add_to_csv(name, balance):
 
 @app.route('/')
 def index():
-    return render_template("test.html")
+    return render_template("main.html")
 
 
 @app.route('/', methods=['POST'])
-def my_form_post():
-    name = request.form['name']
-    balance = request.form['balance']
+def expense():
+    expense_id = int(request.form['expense_id'])
+    category = request.form['category']
+    amount = int(request.form['amount'])
+    date = "nov1"
+    EM = ExpenseManager()
+    expense = Expense(expense_id, category, amount)
+    EM.add_expense(expense)
 
+    EM.to_csv("expenses.csv")
+
+    balance = request.form['balance']
+    budget = request.form['budget']
 
     try: 
         with open("data.csv", 'r') as f:
-            add_to_csv(name, balance)
+            add_to_csv(balance, budget)
     except FileNotFoundError:
-        create_csv(name, balance)
+        create_csv(balance, budget)
 
-    return render_template("test.html")
+
+    return render_template("main.html")
+
+
+
 
 
 if __name__ == "__main__":
