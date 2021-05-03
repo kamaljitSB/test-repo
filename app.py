@@ -35,7 +35,7 @@ def index():
 
 @app.route('/', methods=['POST'])
 def expense():
-    ## Balance ##
+    ## Expense ##
 
     # Get input from html
     # expense_id = int(request.form['expense_id'])
