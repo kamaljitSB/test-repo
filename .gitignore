@@ -1,2 +1,3 @@
 # Put untracked files here for git to ignore
-*__virtualEnv
+__virtualEnv/
+./Models/__pycache__/
