@@ -1,0 +1,20 @@
+{% extends "base.html" %} {% block content %}
+
+<!-- HTML inside <body> goes here -->
+
+<h1>Home page </h1>
+
+<form method="POST">
+    <p>Add expense</p>
+    <input name="expense_id", placeholder="Expense ID", type="number"><br>
+    <input name="category", placeholder="Category"><br>
+    <input name="amount" , placeholder="Amount"><br><br>
+    <input type="submit">
+
+    <p>Add balance</p>
+    <input name="balance" placeholder="Balance amount"><br>
+
+    <p>Add budget</p>
+    <input name="budget" placeholder="Budget amount"><br>
+</form>
+{% endblock %}
