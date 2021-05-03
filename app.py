@@ -6,6 +6,7 @@ from Models.expense_manager import ExpenseManager
 
 app = Flask(__name__)
 
+expense_csv = "Models\expense.csv"
 
 def create_csv(name, balance):
         with open("data.csv", 'w', newline = '') as f:
@@ -34,16 +35,23 @@ def index():
 
 @app.route('/', methods=['POST'])
 def expense():
-    expense_id = int(request.form['expense_id'])
+    ## Balance ##
+
+    # Get input from html
+    # expense_id = int(request.form['expense_id'])
     category = request.form['category']
-    amount = int(request.form['amount'])
-    date = "nov1"
+    amount = float(request.form['amount'])
+    
+    # Store as a class Expense object
     EM = ExpenseManager()
-    expense = Expense(expense_id, category, amount)
+    Next_ID = EM.read_largest_id(expense_csv) + 1
+    expense = Expense(Next_ID, category, amount)
     EM.add_expense(expense)
 
-    EM.to_csv("expenses.csv")
+    EM.to_csv(expense_csv)
 
+
+    ## Balance ##
     balance = request.form['balance']
     budget = request.form['budget']
 

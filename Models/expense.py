@@ -1,4 +1,5 @@
 from datetime import date
+from datetime import datetime
 
 
 TODAY = date.today()
@@ -39,7 +40,7 @@ class Expense:
             ID (int): ID of the expense
             Category (str): Category of the expense (cannot be empty)
             Amount (float): Amount spent (cannot be negative)
-            Date: Date of the expense (default is today)
+            Date (Datetime): Date of the expense (default is today)
         Raises:
             ValueError: 
                 ID is not int
@@ -53,7 +54,10 @@ class Expense:
             raise ValueError("Invalid Category")
         if (not isinstance(Amount, int) and not isinstance(Amount, float)) or Amount <= 0:
             raise ValueError("Invalid Amount")
+        if type(Date) == str:
+            Date = datetime.strptime(Date, "%Y-%m-%d")
 
+        
         self._ID = ID
         self._Category = Category
         self._Amount = float(Amount)
@@ -112,6 +116,6 @@ if __name__ == "__main__":
     Expense1 = Expense(1, "Food", 12, "2021-05-06")
     Expense2 = Expense(2, "Clothes", 599.99, "2021-05-08")
 
-    print(Expense2.Amount)
+    print(Expense2.Date)
     
     
