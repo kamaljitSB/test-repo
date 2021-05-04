@@ -2,3 +2,4 @@
 __virtualEnv/
 *__virtualEnv
 ./Models/__pycache__/
+*.pyc
