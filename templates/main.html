@@ -17,4 +17,19 @@
     <p>Add budget</p>
     <input name="budget" placeholder="Budget amount"><br>
 </form>
+
+
+<h2> All expenses </h2>
+<table>
+    {% for expense in expenses["expenses"] %}
+    <tr>
+        <td>{{expense.ID}}</td>
+        <td>{{expense.Category}}</td>
+        <td>{{expense.Amount}}</td>
+        <td>{{expense.Date.strftime("%Y-%m-%d")}}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+
 {% endblock %}

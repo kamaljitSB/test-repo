@@ -28,9 +28,15 @@ def add_to_csv(name, balance):
             writer.writerow(rows)
 
 
+def list_all_expenses():
+    EM = ExpenseManager()
+    EM.from_csv(expense_csv)
+    return {"expenses": EM.get_expenses()}
+
+
 @app.route('/')
-def index():
-    return render_template("main.html")
+def index():  
+    return render_template("main.html", expenses=list_all_expenses())
 
 
 @app.route('/', methods=['POST'])
@@ -62,7 +68,7 @@ def expense():
         create_csv(balance, budget)
 
 
-    return render_template("main.html")
+    return render_template("main.html", expenses=list_all_expenses())
 
 
 
