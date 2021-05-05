@@ -13,16 +13,16 @@
     <input type="radio" name="category" value="food">
     <label for="food">Food</label>
 
-    <input  type="radio" name="category" value="health">
+    <input type="radio" name="category" value="health">
     <label for="health">Health</label>
 
     <input type="radio" name="category" value="family">
     <label for="family">Family</label>
 
     <br>
-    <input name="amount", placeholder="Amount"><br> <br>
+    <input name="amount" , placeholder="Amount"><br> <br>
     <input type="submit">
-    
+
 
     <h2>Add balance</h2>
     <input name="balance" placeholder="Balance amount"><br>
@@ -43,6 +43,13 @@
     </tr>
     {% endfor %}
 </table>
+
+
+<h2> Balance </h2>
+<p> {{balanceBudget["balance"]}} </p>
+
+<h2> Budget </h2>
+<p> {{balanceBudget["budget"]}} </p>
 
 
 {% endblock %}
