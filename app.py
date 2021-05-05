@@ -60,18 +60,27 @@ def expense():
     ## Expense ##
 
     # Get input from html
-    category = request.form['category']
-    amount = float(request.form['amount'])
-    
-    # Store as a class Expense object
-    EM = ExpenseManager()
-    Next_ID = EM.read_largest_id(expense_csv) + 1
-    expense = Expense(Next_ID, category, amount)
-    EM.add_expense(expense)
+    try:
+        category = request.form['category']
+        amount = float(request.form['amount'])
+    except ValueError:
+        return render_template("main.html", expenses=list_all_expenses(), balanceBudget=from_csv(balance_csv))
+    except KeyError:
+        balanceBudget()
+        return render_template("main.html", expenses=list_all_expenses(), balanceBudget=from_csv(balance_csv))
 
-    EM.to_csv(expense_csv)
+    if category != "":
+        # Store as a class Expense object
+        EM = ExpenseManager()
+        Next_ID = EM.read_largest_id(expense_csv) + 1
+        expense = Expense(Next_ID, category, amount)
+        EM.add_expense(expense)
+
+        EM.to_csv(expense_csv)
+    return render_template("main.html", expenses=list_all_expenses(), balanceBudget=from_csv(balance_csv))
 
 
+def balanceBudget():
     ## Balance ##
     balance = request.form['balance']
     budget = request.form['budget']
