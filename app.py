@@ -76,12 +76,18 @@ def expense():
     balance = request.form['balance']
     budget = request.form['budget']
 
+    # Check if the input box is empty
+    if balance == "":
+        balance = from_csv(balance_csv)["balance"]
+    if budget == "":
+        budget = from_csv(balance_csv)["budget"]
+
     try: 
         with open(balance_csv, 'a') as f:
             add_to_csv(balance, budget)
     except FileNotFoundError:
         create_csv(balance, budget)
-
+    
 
     return render_template("main.html", expenses=list_all_expenses(), balanceBudget=from_csv(balance_csv))
 
