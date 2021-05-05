@@ -10,7 +10,7 @@
             <input name="balance" placeholder="Balance amount"><br>
 
             <h2 class="sectionHeading">Add expense</h2>
-            
+
             <div id="radios">
                 <input type="radio" name="category" value="School">
                 <label class="radioLabel" for="school">School</label>
@@ -18,7 +18,7 @@
                 <input type="radio" name="category" value="Food">
                 <label class="radioLabel" for="food">Food</label>
 
-                <input  type="radio" name="category" value="Health">
+                <input type="radio" name="category" value="Health">
                 <label class="radioLabel" for="health">Health</label>
 
                 <input type="radio" name="category" value="Family">
@@ -26,7 +26,7 @@
             </div>
 
             <br>
-            <input name="amount", placeholder="Amount"><br> <br>
+            <input name="amount" , placeholder="Amount"><br> <br>
             <input type="submit">
         </div>
     </div>
@@ -37,9 +37,16 @@
 <table id="expenseTable">
     {% for expense in expenses["expenses"] %}
     <tr>
+        <th> ID </th>
+        <th> Category </th>
+        <th> Amount </th>
+        <th> Date </th>
+    </tr>
+
+    <tr>
         <td class="tableRow" id="expenseID">{{expense.ID}}</td>
         <td class="tableRow" id="expenseCategory">{{expense.Category}}</td>
-        <td class="tableRow" id="expenseAmount">{{expense.Amount}}</td>
+        <td class="tableRow" id="expenseAmount">${{expense.Amount}}</td>
         <td class="tableRow" id="expenseDate">{{expense.Date.strftime("%Y-%m-%d")}}</td>
     </tr>
     {% endfor %}
