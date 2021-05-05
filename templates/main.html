@@ -24,13 +24,14 @@
     <input type="submit">
 
 
-    <h2>Add balance</h2>
+    <h2>Update balance</h2>
     <input name="balance" placeholder="Balance amount"><br>
 
-    <h2>Add budget</h2>
+    <h2>Update budget</h2>
     <input name="budget" placeholder="Budget amount"><br>
 </form>
 
+<br> <br>
 
 <h2> All expenses </h2>
 <table>
@@ -38,7 +39,7 @@
     <tr>
         <td>{{expense.ID}}</td>
         <td>{{expense.Category}}</td>
-        <td>{{expense.Amount}}</td>
+        <td>${{expense.Amount}}</td>
         <td>{{expense.Date.strftime("%Y-%m-%d")}}</td>
     </tr>
     {% endfor %}
