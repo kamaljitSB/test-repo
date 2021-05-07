@@ -95,7 +95,7 @@ class Expense:
         expense_dict["ID"] = self.ID
         expense_dict["Category"] = self.Category
         expense_dict["Amount"] = self.Amount
-        expense_dict["Date"] = self.Date
+        expense_dict["Date"] = self.Date.strftime("%Y-%m-%d")
 
         return expense_dict
 
