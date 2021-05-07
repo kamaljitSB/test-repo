@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, url_for, redirect
 import csv
 from Models.expense import Expense
 from Models.expense_manager import ExpenseManager
@@ -49,16 +49,24 @@ def list_all_expenses():
 
 
 def delete_expense(ID):
+    """ Delete the expense record from the list"""
+    # Load the list of expenses from csv, then put it into EM to manipulate
+    # Finally put it back to the csv
     EM = ExpenseManager()
     EM.from_csv(expense_csv)
     EM.del_expense(ID)
-
     EM.override_to_csv(expense_csv)
+
+
+@app.route("/delete/<int:ID>")
+def delete(ID):
+    delete_expense(ID)
+    return redirect(url_for("index"))
+    # return render_template("main.html", expenses=list_all_expenses(), balanceBudget=from_csv(balance_csv))
 
 
 @app.route('/')
 def index():  
-    # delete_expense(2)
     return render_template("main.html", expenses=list_all_expenses(), balanceBudget=from_csv(balance_csv))
 
 

@@ -75,7 +75,12 @@ class ExpenseManager:
                 expense = Expense.create_from_dict(item)
                 id.append(expense.ID)
             id.sort(reverse=True)
-        return id[0]
+        # Check if the csv have no record at all
+        if len(id) == 0:
+            largest_ID = 0
+        else:
+            largest_ID = id[0]
+        return largest_ID
             
 
 
