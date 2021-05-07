@@ -1,5 +1,5 @@
-from Models.expense import Expense
-# from expense import Expense
+# from Models.expense import Expense
+from expense import Expense
 import csv
 
 
@@ -13,6 +13,10 @@ class ExpenseManager:
         if not isinstance(expense, Expense):
             raise TypeError("Invalid expense type!")
         self._expenses[expense.ID] = expense
+
+
+    def del_expense(self, expenseID):
+        self._expenses.pop(expenseID)
 
 
     def get_expenses(self):
@@ -72,3 +76,5 @@ if __name__ == "__main__":
     print(EM.get_expenses())    
     print(EM.read_largest_id("expense.csv"))
 
+    EM.del_expense(2)
+    print(EM.get_expenses())    
