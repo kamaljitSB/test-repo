@@ -46,7 +46,10 @@
         <td class="tableRow" id="expenseID">{{expense.ID}}</td>
         <td class="tableRow" id="expenseCategory">{{expense.Category}}</td>
         <td class="tableRow" id="expenseAmount">${{expense.Amount}}</td>
-        <td class="tableRow" id="expenseDate">{{expense.Date.strftime("%Y-%m-%d")}}</td>
+        <td class="tableRow" id="expenseDate">{{expense.Date}}</td>
+        <td>
+            <form method="GET"> <input name="ID" value={{expense.ID}} type="submit" value="DELETE"> </form>
+        </td>
     </tr>
     {% endfor %}
 </table>

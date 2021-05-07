@@ -1,5 +1,5 @@
-# from Models.expense import Expense
-from expense import Expense
+from Models.expense import Expense
+# from expense import Expense
 import csv
 
 
@@ -16,6 +16,7 @@ class ExpenseManager:
 
 
     def del_expense(self, expenseID):
+        """ Delete the expense from Expense Manager based on the expense ID"""
         self._expenses.pop(expenseID)
 
 
@@ -50,7 +51,17 @@ class ExpenseManager:
             for expense in self._expenses.values():
                 writer.writerow(expense.to_dict())
 
-    
+
+    def override_to_csv(self, csv_file):
+        """Write to a csv file"""
+        fields = Expense.get_serializable_field_names()
+        with open(csv_file, "w", newline="") as f:
+            writer = csv.DictWriter(f, fields)
+            writer.writeheader()
+            for expense in self._expenses.values():
+                writer.writerow(expense.to_dict())
+
+
     def read_largest_id(self, csv_file):
         """Get largest id from csv_file
 
@@ -76,5 +87,5 @@ if __name__ == "__main__":
     print(EM.get_expenses())    
     print(EM.read_largest_id("expense.csv"))
 
-    EM.del_expense(2)
-    print(EM.get_expenses())    
+    # EM.del_expense(2)
+    # print(EM.get_expenses())    

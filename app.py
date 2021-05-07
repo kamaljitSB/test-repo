@@ -42,16 +42,23 @@ def from_csv(csv_file):
     return balanceBudget
                 
 
-    
-
 def list_all_expenses():
     EM = ExpenseManager()
     EM.from_csv(expense_csv)
     return {"expenses": EM.get_expenses()}
 
 
+def delete_expense(ID):
+    EM = ExpenseManager()
+    EM.from_csv(expense_csv)
+    EM.del_expense(ID)
+
+    EM.override_to_csv(expense_csv)
+
+
 @app.route('/')
 def index():  
+    # delete_expense(2)
     return render_template("main.html", expenses=list_all_expenses(), balanceBudget=from_csv(balance_csv))
 
 
