@@ -36,8 +36,8 @@ def from_csv(csv_file):
     with open(csv_file, "r") as f:
         reader = csv.DictReader(f)
         for item in reader:
-            balanceBudget["balance"] = item["balance"]
-            balanceBudget["budget"] = item["budget"]
+            balanceBudget["balance"] = format(float(item["balance"]), ".2f")
+            balanceBudget["budget"] = format(float(item["budget"]), ".2f")
     
     return balanceBudget
                 
