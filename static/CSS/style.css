@@ -55,7 +55,7 @@ h1 {
     width: 8rem;
 }
 
-#titleContainer > img {
+#titleContainer>img {
     margin-left: 2rem;
 }
 
@@ -75,7 +75,3 @@ h1 {
 .radioLabel {
     background-color: #370031;
 }
-
-
-
-
