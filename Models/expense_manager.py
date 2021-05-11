@@ -1,6 +1,7 @@
 from Models.expense import Expense
 # from expense import Expense
 import csv
+from datetime import datetime, timedelta
 
 
 class ExpenseManager:
@@ -84,15 +85,51 @@ class ExpenseManager:
             
 
     def by_month_expense(self):
-        """ Calculate the expenses by month """
+        """ Calculate the expenses by month (last 1 year)"""
         
-        dict_month = {"Apr": 0.0, "May": 0.0}
+        dict_month = {
+            "Jan": 0.0,
+            "Feb": 0.0,
+            "Mar": 0.0,
+            "Apr": 0.0,
+            "May": 0.0,
+            "Jun": 0.0,
+            "Jul": 0.0,
+            "Aug": 0.0,
+            "Sep": 0.0,
+            "Oct": 0.0,
+            "Nov": 0.0,
+            "Dec": 0.0
+            }
+        TODAY = datetime.today()
 
         for (key, value) in self._expenses.items():
-            if value.Date.month == 4:
-                dict_month["Apr"] = dict_month["Apr"] + float(value.Amount)
-            if value.Date.month == 5:
-                dict_month["May"] = dict_month["May"] + float(value.Amount)
+            if TODAY - value.Date <= timedelta(365):
+                if value.Date.month == 1:
+                    dict_month["Jan"] = dict_month["Jan"] + float(value.Amount)
+                if value.Date.month == 2:
+                    dict_month["Feb"] = dict_month["Feb"] + float(value.Amount)
+                if value.Date.month == 3:
+                    dict_month["Mar"] = dict_month["Mar"] + float(value.Amount)
+                if value.Date.month == 4:
+                    dict_month["Apr"] = dict_month["Apr"] + float(value.Amount)    
+                if value.Date.month == 5:
+                    dict_month["May"] = dict_month["May"] + float(value.Amount)
+                if value.Date.month == 6:
+                    dict_month["Jun"] = dict_month["Jun"] + float(value.Amount)
+                if value.Date.month == 7:
+                    dict_month["Jul"] = dict_month["Jul"] + float(value.Amount)
+                if value.Date.month == 8:
+                    dict_month["Aug"] = dict_month["Aug"] + float(value.Amount)
+                if value.Date.month == 9:
+                    dict_month["Sep"] = dict_month["Sep"] + float(value.Amount)
+                if value.Date.month == 10:
+                    dict_month["Oct"] = dict_month["Oct"] + float(value.Amount)
+                if value.Date.month == 11:
+                    dict_month["Nov"] = dict_month["Nov"] + float(value.Amount)
+                if value.Date.month == 12:
+                    dict_month["Dec"] = dict_month["Dec"] + float(value.Amount)
+
         return dict_month
 
 ############################################
