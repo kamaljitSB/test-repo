@@ -1,10 +1,11 @@
-from flask import Flask, request, render_template, url_for, redirect
+from flask import Flask, request, render_template, url_for, redirect, flash
 import csv
 from Models.expense import Expense
 from Models.expense_manager import ExpenseManager
 
 
 app = Flask(__name__)
+app.secret_key = b'ooo_5#y2L"F4Q9858z\n\xec]/'
 
 expense_csv = "Models\expense.csv"
 balance_csv = "data.csv"
@@ -61,6 +62,7 @@ def delete_expense(ID):
 @app.route("/delete/<int:ID>")
 def delete(ID):
     delete_expense(ID)
+    flash(f'Expense #{ID} is deleted!')
     return redirect(url_for("index"))
     # return render_template("main.html", expenses=list_all_expenses(), balanceBudget=from_csv(balance_csv))
 
