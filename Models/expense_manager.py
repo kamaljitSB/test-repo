@@ -85,7 +85,14 @@ class ExpenseManager:
 
     def by_month_expense(self):
         """ Calculate the expenses by month """
-        dict_month = {"Apr": 20, "May": 30}
+        
+        dict_month = {"Apr": 0.0, "May": 0.0}
+
+        for (key, value) in self._expenses.items():
+            if value.Date.month == 4:
+                dict_month["Apr"] = dict_month["Apr"] + float(value.Amount)
+            if value.Date.month == 5:
+                dict_month["May"] = dict_month["May"] + float(value.Amount)
         return dict_month
 
 ############################################
