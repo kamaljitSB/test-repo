@@ -82,7 +82,12 @@ class ExpenseManager:
             largest_ID = id[0]
         return largest_ID
             
-    
+
+    def by_month_expense(self):
+        """ Calculate the expenses by month """
+        dict_month = {"Apr": 20, "May": 30}
+        return dict_month
+
 ############################################
 if __name__ == "__main__":
     EM = ExpenseManager()
