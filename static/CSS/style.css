@@ -1,0 +1,161 @@
+body {
+    font-family: 'Changa', sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    background-image: url(../images/cat-1507600_1920.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#appTitle {
+    color: white;
+}
+
+.container{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 3fr;
+    grid-template-areas: 
+    "top top"
+    "left right";
+}
+
+.top_section{
+    grid-area: top;
+}
+
+.left_section{
+    grid-area: left;
+}
+
+.right_section{
+    grid-area: right;
+}
+
+.top_section{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+}
+
+#subContainer{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background-color: rgba(184, 184, 184, 0.15); 
+    border-radius: 25px;
+    color: #fafafa;
+    padding-left: 25px;
+    margin-top: 10px;
+}
+
+
+.balance_container, .budget_container {
+    text-align: center;
+}
+
+.left_section, .right_section{
+    background-color: rgba(177, 177, 177, 0.15); 
+    border-radius: 25px;
+    margin: 50px 20px 0 20px;
+    color: #fafafa;
+}
+
+#titleContainer {
+    display: flex;
+    margin-left: 8rem;
+    padding-top: 25px;
+    justify-content: space-around;
+    width: 8rem;
+}
+
+button:hover{
+    color: #fafafa;
+}
+
+button{
+    border: none;
+    color:#DC4B19;
+    border-radius:4px;
+}
+
+#catInvert {
+    transform: scaleX(-1);
+}
+
+.expenseSection {
+    margin-left: 20rem;
+    width: 23rem;
+    border-radius: 25px;
+}
+
+#expenseTable {
+    display: flex;
+    overflow-y: scroll;
+    height: 15rem;
+    width: 22.5rem;
+}
+
+.analysisSection {
+    margin-left: 25rem;
+}
+
+#titleContainer {
+    height: 10rem;
+    margin-left: 15rem;
+}
+
+
+
+/* h1 {
+    margin-left: 7rem;
+}
+
+#mainContainer {
+    background-color: #370031;
+    width: 26rem;
+    height: 24rem;
+    display: flex;
+    justify-content: center;
+}
+
+.sectionHeading {
+    background-color: #370031;
+}
+
+#subContainer {
+    margin-left: 5rem;
+    background-color: #370031;
+}
+
+.tableHeading {
+    margin-left: 2rem;
+}
+
+
+
+.tableRow {
+    padding-right: 15px;
+}
+
+#titleContainer {
+    display: flex;
+    margin-left: 8rem;
+    justify-content: space-around;
+    width: 8rem;
+}
+
+#titleContainer>img {
+    margin-left: 2rem;
+}
+
+#appTitle {
+    margin-right: 4.5rem;
+}
+
+#radios {
+    margin-right: 2.5rem;
+    background-color: #370031;
+}
+
+.radioLabel {
+    background-color: #370031;
+} */
