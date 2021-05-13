@@ -71,14 +71,15 @@
                         <td class="tableRow" id="expenseAmount">${{expense.Amount}}</td>
                         <td class="tableRow" id="expenseDate">{{expense.Date}}</td>
                         <td>
-                            <form action="http://localhost:5000/delete/{{expense.ID}}" method="GET">
-                                <button name="ID" type="submit" value="DELETE"><i class="material-icons">delete</button>
-                            </form>
+
                             <form action="http://localhost:5000/update/{{expense.ID}}" method="GET">
                                 <button name="ID" type="submit" value="UPDATE"><i class="material-icons">edit</button>
                             </form>
-
-
+                        </td>
+                        <td>
+                            <form action="http://localhost:5000/delete/{{expense.ID}}" method="GET">
+                                <button name="ID" type="submit" value="DELETE"><i class="material-icons">delete</button>
+                            </form>
                         </td>
                     </tr>
                     {% endfor %}
