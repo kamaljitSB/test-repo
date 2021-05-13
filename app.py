@@ -152,7 +152,7 @@ def expense():
 
         # Save balance, budget
         add_to_csv(bal_dict["balance"], bal_dict["budget"])
-
+    flash(f'Expense #{Next_ID} has been added!')
     return redirect(url_for("index"))
 
 
