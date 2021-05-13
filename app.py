@@ -7,6 +7,7 @@ from Models.expense_manager import ExpenseManager
 app = Flask(__name__)
 app.secret_key = b'ooo_5#y2L"F4Q9858z\n\xec]/'
 
+# Database filename: csv file for expense and balance/budget
 expense_csv = "Models\expense.csv"
 balance_csv = "data.csv"
 
@@ -49,6 +50,11 @@ def list_all_expenses():
     return {"expenses": EM.get_expenses()}
     
 
+def display_expense_by_month():
+    EM = ExpenseManager()
+    EM.from_csv(expense_csv)
+    return EM.by_month_expense()
+
 
 def delete_expense(ID):
     """ Delete the expense record from the list"""
@@ -59,6 +65,7 @@ def delete_expense(ID):
     EM.del_expense(ID)
     EM.override_to_csv(expense_csv)
 
+
 def update_expense(ID, category, amount, date):
     EM = ExpenseManager()
     EM.from_csv(expense_csv)
@@ -68,11 +75,20 @@ def update_expense(ID, category, amount, date):
     EM.override_to_csv(expense_csv)
 
 
+##################################################################
+### Routes from here ###
+
+@app.route('/')
+def index():  
+    return render_template("main.html", expenses=list_all_expenses(), balanceBudget=from_csv(balance_csv), byMonth=display_expense_by_month())
+
+
 @app.route("/delete/<int:ID>")
 def delete(ID):
     delete_expense(ID)
     flash(f'Expense #{ID} has been deleted!')
     return redirect(url_for("index"))
+
 
 @app.route("/update/<int:ID>")
 def edit(ID):
@@ -86,6 +102,7 @@ def edit(ID):
     category=category.lower()
     
     return render_template("update.html", ID=ID,category=category, amount=amount, date=date)
+
 
 @app.route("/update/<int:ID>", methods=['POST'])
 def update(ID):
@@ -101,12 +118,6 @@ def update(ID):
     update_expense(ID, category, amount, date)
     flash(f'Expense #{ID} has been updated!')
     return redirect(url_for("index"))
-
-
-
-@app.route('/')
-def index():  
-    return render_template("main.html", expenses=list_all_expenses(), balanceBudget=from_csv(balance_csv))
 
 
 @app.route("/add",  methods=['POST'])
