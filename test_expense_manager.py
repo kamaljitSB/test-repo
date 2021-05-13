@@ -1,4 +1,5 @@
 import pytest
+from werkzeug.wrappers import ETagResponseMixin
 from Models.expense_manager import ExpenseManager
 from Models.expense import Expense
 
@@ -85,7 +86,24 @@ def test_upd_expense():
     assert manager._expenses[1] == updated_expense
 
 
+def test_get_details():
+    """
+    Tests for the get_details method
+    """
+    manager = ExpenseManager()
+    expense = Expense(1, "School", 200, "2020-02-13")
 
+    # Checks if method exists
+    assert hasattr(manager, "get_details")
+
+    # Adds expense
+    manager.add_expense(expense)
+
+    # Checks if correct values are returned
+    expense_object = manager.get_details(1)
+     
+    assert getattr(expense_object, "_Category") == "School"
+    assert getattr(expense_object, "_Amount") == "200.00"
 
 
 def test_get_expenses():
