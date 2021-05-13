@@ -83,9 +83,9 @@ def edit(ID):
     category = getattr(expense, "_Category")
     amount = getattr(expense, "_Amount")
     date = getattr(expense, "_Date")
-
+    category=category.lower()
+    print(category)
     
-
     return render_template("update.html", ID=ID,category=category, amount=amount, date=date)
 
 @app.route("/update/<int:ID>", methods=['POST'])
