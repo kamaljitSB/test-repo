@@ -19,6 +19,11 @@ class ExpenseManager:
     def del_expense(self, expenseID):
         """ Delete the expense from Expense Manager based on the expense ID"""
         self._expenses.pop(expenseID)
+    
+    def upd_expense(self, expenseID, expense):
+        """ Delete the expense from Expense Manager based on the expense ID"""
+
+        self._expenses[expenseID] = expense
 
 
     def get_expenses(self):
@@ -28,6 +33,10 @@ class ExpenseManager:
         for (key, value) in self._expenses.items():
             expenses_list.append(value)
         return [ expense.to_dict() for expense in expenses_list]
+
+    def get_details(self, ID):
+        return self._expenses.get(ID)
+        
 
 
     def from_csv(self, csv_file):
