@@ -34,10 +34,13 @@ class ExpenseManager:
             expenses_list.append(value)
         return [ expense.to_dict() for expense in expenses_list]
 
+
     def get_details(self, ID):
+        """
+        Returns attribute values of expense using its ID
+        """
         return self._expenses.get(ID)
         
-
 
     def from_csv(self, csv_file):
         """Get data from a csv file
