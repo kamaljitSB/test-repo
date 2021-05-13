@@ -18,7 +18,7 @@ def test_attributes():
     # Checks private attributes were assigned correctly
     assert expense._ID == 1
     assert expense._Category == "school"
-    assert expense._Amount == 200
+    assert expense._Amount == "200.00"
     assert expense._Date == date.today()
 
 
