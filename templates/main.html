@@ -32,12 +32,12 @@
         <div class="expenseSection">
             <h1 class="tableHeading"> All expenses </h1>
             <!-- Display delete message -->
-            {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %} <br>{{ message }} {% endfor %} {% endif %} {% endwith %}
+            {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %} {{ message }} {% endfor %} {% endif %} {% endwith %}
             <div class="input_expense">
                 <form action="http://localhost:5000/add" method="POST">
                     <h2 class="sectionHeading">Add expense</h2>
                     <div id="radios">
-                        
+
                         <input type="radio" name="category" value="School">
                         <label class="radioLabel" for="school">School</label>
 
@@ -77,7 +77,7 @@
                             <form action="http://localhost:5000/update/{{expense.ID}}" method="GET">
                                 <button name="ID" type="submit" value="UPDATE"><i class="material-icons">edit</button>
                             </form>
-                            
+
 
                         </td>
                     </tr>
