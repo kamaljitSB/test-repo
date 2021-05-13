@@ -47,6 +47,7 @@ def list_all_expenses():
     EM = ExpenseManager()
     EM.from_csv(expense_csv)
     return {"expenses": EM.get_expenses()}
+    
 
 
 def delete_expense(ID):
@@ -58,13 +59,49 @@ def delete_expense(ID):
     EM.del_expense(ID)
     EM.override_to_csv(expense_csv)
 
+def update_expense(ID, category, amount, date):
+    EM = ExpenseManager()
+    EM.from_csv(expense_csv)
+
+    expense = Expense(ID, category, amount, date)
+    EM.upd_expense(ID, expense)
+    EM.override_to_csv(expense_csv)
+
 
 @app.route("/delete/<int:ID>")
 def delete(ID):
     delete_expense(ID)
     flash(f'Expense #{ID} is deleted!')
     return redirect(url_for("index"))
-    # return render_template("main.html", expenses=list_all_expenses(), balanceBudget=from_csv(balance_csv))
+
+@app.route("/update/<int:ID>")
+def edit(ID):
+    EM = ExpenseManager()
+    EM.from_csv(expense_csv)
+    expense = EM.get_details(ID)
+    
+    category = getattr(expense, "_Category")
+    amount = getattr(expense, "_Amount")
+    date = getattr(expense, "_Date")
+
+    
+
+    return render_template("update.html", ID=ID,category=category, amount=amount, date=date)
+
+@app.route("/update/<int:ID>", methods=['POST'])
+def update(ID):
+    try:
+        category = request.form['category']
+        amount = float(request.form['amount'])
+        date = request.form['date']
+    except ValueError:
+        return redirect(url_for("index"))
+    except KeyError:
+        return redirect(url_for("index"))
+
+    update_expense(ID, category, amount, date)
+    return redirect(url_for("index"))
+
 
 
 @app.route('/')
@@ -72,7 +109,7 @@ def index():
     return render_template("main.html", expenses=list_all_expenses(), balanceBudget=from_csv(balance_csv))
 
 
-@app.route('/', methods=['POST'])
+@app.route("/add",  methods=['POST'])
 def expense():
     ## Expense ##
 
@@ -81,10 +118,10 @@ def expense():
         category = request.form['category']
         amount = float(request.form['amount'])
     except ValueError:
-        return render_template("main.html", expenses=list_all_expenses(), balanceBudget=from_csv(balance_csv))
+        return redirect(url_for("index"))
     except KeyError:
-        balanceBudget()
-        return render_template("main.html", expenses=list_all_expenses(), balanceBudget=from_csv(balance_csv))
+        return redirect(url_for("index"))
+        
 
     if category != "":
         # Store as a class Expense object
@@ -105,10 +142,10 @@ def expense():
         # Save balance, budget
         add_to_csv(bal_dict["balance"], bal_dict["budget"])
 
-    balanceBudget()
-    return render_template("main.html", expenses=list_all_expenses(), balanceBudget=from_csv(balance_csv))
+    return redirect(url_for("index"))
 
 
+@app.route('/', methods=['POST'])
 def balanceBudget():
     ## Balance ##
     balance = request.form['balance']
@@ -126,8 +163,8 @@ def balanceBudget():
     except FileNotFoundError:
         create_csv(balance, budget)
     
-
-    return render_template("main.html", expenses=list_all_expenses(), balanceBudget=from_csv(balance_csv))
+    return redirect(url_for("index"))
+    
 
 
 
