@@ -90,6 +90,23 @@
     <div class="right_section">
         <div class="analysisSection">
             <h1>Analysis</h1>
+            <h3> Expenses by Month</h2>
+                <table>
+                    <tr>
+                        <th> Month</th>
+                        <th> Amount </th>
+                    </tr>
+                    {% for (key, value) in byMonth.items() %}
+                    <tr>
+                        <td>{{key}}: </td>
+                        <td>${{value}}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+
+
+
+
         </div>
     </div>
 </div>
