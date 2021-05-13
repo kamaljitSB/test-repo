@@ -71,7 +71,7 @@ def update_expense(ID, category, amount, date):
 @app.route("/delete/<int:ID>")
 def delete(ID):
     delete_expense(ID)
-    flash(f'Expense #{ID} is deleted!')
+    flash(f'Expense #{ID} has been deleted!')
     return redirect(url_for("index"))
 
 @app.route("/update/<int:ID>")
@@ -100,6 +100,7 @@ def update(ID):
         return redirect(url_for("index"))
 
     update_expense(ID, category, amount, date)
+    flash(f'Expense #{ID} has been updated!')
     return redirect(url_for("index"))
 
 
