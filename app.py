@@ -25,15 +25,26 @@ def create_csv(balance, budget):
 
 
 def add_to_csv(balance, budget):
-        # Appends to data.csv instead of writing, which would replace existing entries
-        with open(balance_csv, 'a', newline = '') as f:
-            writer = csv.writer(f)
-            rows = [balance, budget]
-            writer.writerow(rows)
+    """ Add balance and budget to the csv file
+
+    :param balance: balance that to be updated
+    :type balance: float
+    :param budget: budget that to be updated
+    :type budget: float
+    """
+    # Appends to data.csv instead of writing, which would replace existing entries
+    with open(balance_csv, 'a', newline = '') as f:
+        writer = csv.writer(f)
+        rows = [balance, budget]
+        writer.writerow(rows)
 
 
 def from_csv(csv_file):
-    """ Load the balance and budget from the csv file """
+    """ Load the balance and budget from the csv file 
+    
+    :return: Latest balance and budget from the csv file
+    :rtype: dict
+    """
     balanceBudget = {}
     with open(csv_file, "r") as f:
         reader = csv.DictReader(f)
@@ -45,13 +56,18 @@ def from_csv(csv_file):
                 
 
 def list_all_expenses():
+    """ List all expenses in the csv file
+
+    :return: All expenses records
+    :rtype: dict
+    """
     EM = ExpenseManager()
     EM.from_csv(expense_csv)
     return {"expenses": EM.get_expenses()}
     
 
 def display_expense_by_month():
-    """ " Summarize all expesnses by month"
+    """ Summarize all expesnses by month 
 
     :return: All expenses subtotal in last 12 months
     :rtype: dict
@@ -62,13 +78,22 @@ def display_expense_by_month():
 
 
 def display_expense_by_category():
+    """ Summarize all expenses by category
+
+    :return: All expenses subtotal by category in last 12 months, with percentage
+    :rtype: dict
+    """
     EM = ExpenseManager()
     EM.from_csv(expense_csv)
     return EM.by_category()
 
 
 def delete_expense(ID):
-    """ Delete the expense record from the list"""
+    """ Delete the expense record from the list
+
+    :return: None
+    :rtype: None
+    """
     # Load the list of expenses from csv, then put it into EM to manipulate
     # Finally put it back to the csv
     EM = ExpenseManager()

@@ -11,6 +11,12 @@ class ExpenseManager:
 
     
     def add_expense(self, expense):
+        """ Add a new expense to the Expense Manager
+
+        :param expense: A new expense from user
+        :type expense: Expense
+        :raises TypeError: Valid for class Expense only
+        """
         if not isinstance(expense, Expense):
             raise TypeError("Invalid expense type!")
         self._expenses[expense.ID] = expense
@@ -20,9 +26,9 @@ class ExpenseManager:
         """ Delete the expense from Expense Manager based on the expense ID"""
         self._expenses.pop(expenseID)
     
+
     def upd_expense(self, expenseID, expense):
         """ Update the expense from Expense Manager based on the expense ID"""
-
         self._expenses[expenseID] = expense
 
 
@@ -38,6 +44,9 @@ class ExpenseManager:
     def get_details(self, ID):
         """
         Returns attribute values of expense using its ID
+
+        :param budget
+        :type budget: int
         """
         return self._expenses.get(ID)
         
@@ -147,6 +156,8 @@ class ExpenseManager:
 
     def by_category(self):
         """ Calculate the expenses by caetgory """
+
+        # 1st element is subtotal; 2nd element is percentage
         dict_category = {
             "School": [0.0, 0.0],
             "Food": [0.0, 0.0],
@@ -177,22 +188,6 @@ class ExpenseManager:
             
         return dict_category
 
-
-
-
-    # def total_amount(self, dict_category):
-    #     """ Total amount of all expenses"""
-    #     TODAY = datetime.today()
-    #     Total = 0
-
-    #     for (key, value) in self._expenses.items():
-    #         if TODAY - value.Date <= timedelta(365):
-    #             Total = Total + float(value.Amount)
-
-    #     for (key, value) in dict_category.items():
-    #         value = value / Total
-        
-    #     return dict_category
 
 ############################################
 if __name__ == "__main__":
