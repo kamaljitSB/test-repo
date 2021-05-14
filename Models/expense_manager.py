@@ -21,7 +21,7 @@ class ExpenseManager:
         self._expenses.pop(expenseID)
     
     def upd_expense(self, expenseID, expense):
-        """ Delete the expense from Expense Manager based on the expense ID"""
+        """ Update the expense from Expense Manager based on the expense ID"""
 
         self._expenses[expenseID] = expense
 
@@ -148,24 +148,51 @@ class ExpenseManager:
     def by_category(self):
         """ Calculate the expenses by caetgory """
         dict_category = {
-            "School": 0.0,
-            "Food": 0.0,
-            "Health": 0.0,
-            "Family": 0.0}
+            "School": [0.0, 0.0],
+            "Food": [0.0, 0.0],
+            "Health": [0.0, 0.0],
+            "Family": [0.0, 0.0]}
         TODAY = datetime.today()
+        Total = 0
+
+        # Calculate the total amouunt
+        for (key, value) in self._expenses.items():
+            if TODAY - value.Date <= timedelta(365):
+                Total = Total + float(value.Amount)
 
         for (key, value) in self._expenses.items():
             if TODAY - value.Date <= timedelta(365):
                 if value.Category == "School":
-                    dict_category["School"] = dict_category["School"] + float(value.Amount)
+                    dict_category["School"][0] = dict_category["School"][0] + float(value.Amount)
+                    dict_category["School"][1] = format(dict_category["School"][0] / Total * 100, ".2f")
                 if value.Category == "Food":
-                    dict_category["Food"] = dict_category["Food"] + float(value.Amount)
+                    dict_category["Food"][0] = dict_category["Food"][0] + float(value.Amount)
+                    dict_category["Food"][1] = format(dict_category["Food"][0] / Total * 100, ".2f")
                 if value.Category == "Health":
-                    dict_category["Health"] = dict_category["Health"] + float(value.Amount)
+                    dict_category["Health"][0] = dict_category["Health"][0] + float(value.Amount)
+                    dict_category["Health"][1] = format(dict_category["Health"][0] / Total * 100, ".2f")
                 if value.Category == "Family":
-                    dict_category["Family"] = dict_category["Family"] + float(value.Amount)
-
+                    dict_category["Family"][0] = dict_category["Family"][0] + float(value.Amount)
+                    dict_category["Family"][1] = format(dict_category["Family"][0] / Total * 100, ".2f")
+            
         return dict_category
+
+
+
+
+    # def total_amount(self, dict_category):
+    #     """ Total amount of all expenses"""
+    #     TODAY = datetime.today()
+    #     Total = 0
+
+    #     for (key, value) in self._expenses.items():
+    #         if TODAY - value.Date <= timedelta(365):
+    #             Total = Total + float(value.Amount)
+
+    #     for (key, value) in dict_category.items():
+    #         value = value / Total
+        
+    #     return dict_category
 
 ############################################
 if __name__ == "__main__":

@@ -51,9 +51,20 @@ def list_all_expenses():
     
 
 def display_expense_by_month():
+    """ " Summarize all expesnses by month"
+
+    :return: All expenses subtotal in last 12 months
+    :rtype: dict
+    """
     EM = ExpenseManager()
     EM.from_csv(expense_csv)
     return EM.by_month_expense()
+
+
+def display_expense_by_category():
+    EM = ExpenseManager()
+    EM.from_csv(expense_csv)
+    return EM.by_category()
 
 
 def delete_expense(ID):
@@ -80,7 +91,13 @@ def update_expense(ID, category, amount, date):
 
 @app.route('/')
 def index():  
-    return render_template("main.html", expenses=list_all_expenses(), balanceBudget=from_csv(balance_csv), byMonth=display_expense_by_month())
+    return render_template(
+        "main.html", 
+        expenses=list_all_expenses(), 
+        balanceBudget=from_csv(balance_csv), 
+        byMonth=display_expense_by_month(),
+        byCategory=display_expense_by_category(),
+        )
 
 
 @app.route("/delete/<int:ID>")
