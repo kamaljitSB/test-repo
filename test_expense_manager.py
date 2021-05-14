@@ -169,3 +169,24 @@ def test_by_month_expense():
     assert manager.by_month_expense()["Apr"] == 20
     assert manager.by_month_expense()["May"] == 136.6
     assert manager.by_month_expense()["Jan"] == 150.8
+
+def test_by_category():
+    manager = ExpenseManager()
+    Expense1 = Expense(1, "Food", 50, "2020-04-29")
+    Expense2 = Expense(2, "School", 20, "2021-04-30")
+    Expense3 = Expense(3, "Food", 36.6, "2021-05-01")
+    Expense4 = Expense(4, "Family", 100, "2021-05-02")
+    Expense5 = Expense(5, "Family", 88.8, "2021-01-02")
+    
+
+    # Add to the manager
+    manager.add_expense(Expense1)
+    manager.add_expense(Expense2)
+    manager.add_expense(Expense3)
+    manager.add_expense(Expense4)
+    manager.add_expense(Expense5)
+    
+
+    assert manager.by_category()["Food"] == 36.6
+    assert manager.by_category()["Family"] == 188.8
+    

@@ -144,6 +144,29 @@ class ExpenseManager:
 
         return dict_month
 
+
+    def by_category(self):
+        """ Calculate the expenses by caetgory """
+        dict_category = {
+            "School": 0.0,
+            "Food": 0.0,
+            "Health": 0.0,
+            "Family": 0.0}
+        TODAY = datetime.today()
+
+        for (key, value) in self._expenses.items():
+            if TODAY - value.Date <= timedelta(365):
+                if value.Category == "School":
+                    dict_category["School"] = dict_category["School"] + float(value.Amount)
+                if value.Category == "Food":
+                    dict_category["Food"] = dict_category["Food"] + float(value.Amount)
+                if value.Category == "Health":
+                    dict_category["Health"] = dict_category["Health"] + float(value.Amount)
+                if value.Category == "Family":
+                    dict_category["Family"] = dict_category["Family"] + float(value.Amount)
+
+        return dict_category
+
 ############################################
 if __name__ == "__main__":
     EM = ExpenseManager()
