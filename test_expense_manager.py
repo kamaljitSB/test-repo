@@ -189,4 +189,5 @@ def test_by_category():
 
     assert manager.by_category()["Food"] == 36.6
     assert manager.by_category()["Family"] == 188.8
+    assert manager.by_category()["Health"] == 0
     
