@@ -200,8 +200,38 @@ def update(ID):
     except KeyError:
         return redirect(url_for("index"))
 
-    update_expense(ID, category, amount, date)
     flash(f'Expense #{ID} has been updated!')
+    
+    EM = ExpenseManager()
+    EM.from_csv(expense_csv)
+    expense = EM.get_details(ID)
+    original_expense = float(getattr(expense, "_Amount"))
+
+    # Updates balance amount
+    bal_dict=from_csv(balance_csv)
+    original_balance = float(bal_dict["balance"])
+    updated_expense = amount
+
+    # Deducts from balance (expense amount increased)
+    if updated_expense > original_expense:  
+        amount_to_change = updated_expense - original_expense      
+        updated_balance = original_balance - amount_to_change
+        flash(f'${float(amount_to_change)} deducted from balance')
+
+    # Adds to balance (expense amount decreased)
+    if updated_expense < original_expense:
+        amount_to_change = original_expense - updated_expense
+        updated_balance = original_balance + amount_to_change
+        flash(f'${float(amount_to_change)} added to balance')
+
+    # Save expense
+    EM.to_csv(expense_csv)
+
+    # Save balance, budget
+    add_to_csv(updated_balance, bal_dict["budget"])
+
+    update_expense(ID, category, amount, date)
+
     return redirect(url_for("index"))
 
 
