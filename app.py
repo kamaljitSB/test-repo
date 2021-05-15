@@ -153,7 +153,8 @@ def update(ID):
         amount = float(request.form['amount'])
         date = request.form['date']
     except ValueError:
-        return redirect(url_for("index"))
+        flash("Please enter a valid number for expense amount")
+        return redirect(url_for("edit", ID=ID))
     except KeyError:
         return redirect(url_for("index"))
 
@@ -169,12 +170,17 @@ def expense():
     # Get input from html
     try:
         category = request.form['category']
+    except KeyError:
+        flash("Please select a category")
+        return redirect(url_for("index"))
+
+    try:
         amount = float(request.form['amount'])
     except ValueError:
+        flash("Please enter a valid number for expense amount")
         return redirect(url_for("index"))
-    except KeyError:
-        return redirect(url_for("index"))
-        
+
+    
 
     if category != "":
         # Store as a class Expense object
@@ -194,6 +200,10 @@ def expense():
 
         # Save balance, budget
         add_to_csv(bal_dict["balance"], bal_dict["budget"])
+    elif len(category) == 0:
+        flash("Category can't be left empty")
+        return redirect(url_for("index"))
+
     flash(f'Expense #{Next_ID} has been added!')
     return redirect(url_for("index"))
 
@@ -201,15 +211,29 @@ def expense():
 @app.route('/', methods=['POST'])
 def balanceBudget():
     ## Balance ##
-    balance = request.form['balance']
-    budget = request.form['budget']
-
-    # Check if the input box is empty
-    if balance == "":
+    try:
+        balance = float(request.form['balance'])
+    except ValueError:
+        balance = request.form['balance']
+        if balance == "":
+            balance = from_csv(balance_csv)["balance"]
+        else:
+            flash("Please enter a valid number for balance amount")
         balance = from_csv(balance_csv)["balance"]
-    if budget == "":
-        budget = from_csv(balance_csv)["budget"]
 
+    
+    try:
+        budget = float(request.form['budget'])
+    except ValueError:
+        budget = request.form['budget']
+        if budget == "":
+            budget = from_csv(balance_csv)["budget"]
+        else:
+            flash("Please enter a valid number for budget amount")
+        budget = from_csv(balance_csv)["budget"]
+        
+
+    # Check if the input box is empty or non-integer value entered
     try: 
         with open(balance_csv, 'a') as f:
             add_to_csv(balance, budget)
@@ -218,9 +242,6 @@ def balanceBudget():
     
     return redirect(url_for("index"))
     
-
-
-
 
 
 if __name__ == "__main__":
