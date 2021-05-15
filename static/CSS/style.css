@@ -89,7 +89,7 @@ button{
 
 #expenseTable {
     display: flex;
-    overflow-y: scroll;
+    overflow-y: auto;
     height: 15rem;
     width: 22.5rem;
 }
