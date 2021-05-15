@@ -233,6 +233,8 @@ def update(ID):
     add_to_csv(updated_balance, bal_dict["budget"])
 
     update_expense(ID, category, amount, date)
+    if updated_balance < float(bal_dict["budget"]):
+            flash("Your balance has exceeded your budget!")
 
     return redirect(url_for("index"))
 
