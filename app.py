@@ -194,6 +194,8 @@ def expense():
         # Deduct expense amount from balance
         bal_dict=from_csv(balance_csv)
         bal_dict["balance"] = float(bal_dict["balance"]) - float(expense.Amount)
+        if bal_dict["balance"] < float(bal_dict["budget"]):
+            flash("Your balance has exceeded your budget!")
         
         # Save expense
         EM.to_csv(expense_csv)
