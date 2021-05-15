@@ -1,0 +1,170 @@
+{% extends "base.html" %} {% block content %}
+
+<!-- HTML inside <body> goes here -->
+
+<div class="container">
+    <div class="top_section">
+        <div id=titleContainer>
+            <img id="catTitle" src="../static/images/logo.png">
+        </div>
+        <form method="POST">
+            <div id="mainContainer">
+                <div id="subContainer">
+                    <div class="balance_container">
+                        <h2> Balance </h2>
+                        <p> ${{balanceBudget["balance"]}} </p>
+                        <input class="text-box" name="balance" placeholder="Enter Your Balance"><br>
+                        <button name="button"><i class="material-icons">pets</i></button>
+                    </div>
+                    <div class="budget_container">
+                        <h2> Budget </h2>
+                        <p> ${{balanceBudget["budget"]}} </p>
+                        <input class="text-box" name="budget" placeholder="Enter Your Budget"><br>
+                        <button name="button"><i class="material-icons">pets</i></button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+    <div class="left_section">
+        <div class="expenseSection">
+            <h1 class="tableHeading"> Expenses </h1>
+            <!-- Display error messages -->
+            <div class="notification" style="background-color: white; color: red; border-radius: 8px; margin-right: 3rem">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %} 
+                    {% for message in messages %} 
+                        <div class="alert alert-warning alert-dismissable" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            </div>
+            <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+            <div class="input_expense">
+                <form action="http://localhost:5000/add" method="POST">
+                    <h2 class="sectionHeading">Add expense</h2>
+                    <div id="radios">
+
+                        <input type="radio" name="category" value="School">
+                        <label class="radioLabel" for="school">School</label>
+
+                        <input type="radio" name="category" value="Food">
+                        <label class="radioLabel" for="food">Food</label>
+
+                        <input type="radio" name="category" value="Health">
+                        <label class="radioLabel" for="health">Health</label>
+
+                        <input type="radio" name="category" value="Family">
+                        <label class="radioLabel" for="family">Family</label>
+                    </div>
+                    <br>
+                    <input class="text-box" name="amount" , placeholder="Amount"><br> <br>
+                    <button name="button"><i class="material-icons">pets</i></button>
+                </form>
+            </div>
+            <h2 class="sectionHeading">All Expenses</h2>
+            <div class="output_expense">
+                <table id="expenseTable">
+                    <tr>
+                        <th> ID </th>
+                        <th> Category </th>
+                        <th> Amount </th>
+                        <th> Date </th>
+                    </tr>
+                    {% for expense in expenses["expenses"] %}
+                    <tr>
+                        <td class="tableRow" id="expenseID">{{expense.ID}}</td>
+                        <td class="tableRow" id="expenseCategory">{{expense.Category}}</td>
+                        <td class="tableRow" id="expenseAmount">${{expense.Amount}}</td>
+                        <td class="tableRow" id="expenseDate">{{expense.Date}}</td>
+                        <td>
+
+                            <form action="http://localhost:5000/update/{{expense.ID}}" method="GET">
+                                <button name="ID" type="submit" value="UPDATE"><i class="material-icons">edit</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form action="http://localhost:5000/delete/{{expense.ID}}" method="GET">
+                                <button name="ID" type="submit" value="DELETE"><i class="material-icons">delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="right_section">
+        <div class="analysisSection">
+            <h1>Analysis</h1>
+            <!-- Table for Expenses by Month -->
+            <h3>Expenses by Month <button id="byMonthButton" style="display: inline;" onclick="revealByMonth()">&#9660;</button></h3>
+                <table id="byMonthTable" style="display: none">
+                    <tr>
+                        <th> Month</th>
+                        <th> Amount </th>
+                    </tr>
+                    {% for (key, value) in byMonth.items() %}
+                    <tr>
+                        <td>{{ key }}: </td>
+                        <td>${{ value }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                <!-- Table for Expenses by Category -->
+                <h3>Expenses by Category <button id="byCategoryButton" style="display: inline;" onclick="revealByCategory()">&#9660;</button></h3>
+                    <table id="byCategoryTable" style="display: none">
+                        <tr>
+                            <th> Category</th>
+                            <th> Amount </th>
+                            <th> % </th>
+                        </tr>
+                        {% for (key, value) in byCategory.items() %}
+
+                        <tr>
+                            <td>{{ key }}: </td>
+                            <td>${{ value[0] }}</td>
+                            <td> {{ value[1] }}%</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+
+
+        </div>
+    </div>
+</div>
+<script>
+function revealByMonth() {
+    var x = document.getElementById("byMonthTable");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+      document.getElementById("byMonthButton").innerHTML = "&#9650;"
+    } else {
+      x.style.display = "none";
+      document.getElementById("byMonthButton").innerHTML = "&#9660;"
+    }
+    
+  }
+
+function revealByCategory() {
+    var x = document.getElementById("byCategoryTable");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+      document.getElementById("byCategoryButton").innerHTML = "&#9650;"
+    } else {
+      x.style.display = "none";
+      document.getElementById("byCategoryButton").innerHTML = "&#9660;"
+    }
+    
+  }
+</script>
+
+
+{% endblock %}
