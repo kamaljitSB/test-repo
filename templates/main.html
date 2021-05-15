@@ -105,8 +105,8 @@
         <div class="analysisSection">
             <h1>Analysis</h1>
             <!-- Table for Expenses by Month -->
-            <h3> Expenses by Month</h3>
-                <table>
+            <h3>Expenses by Month <button style="display: inline;" onclick="revealByMonth()">&#9660;</button></h3>
+                <table id="byMonth" style="display: none">
                     <tr>
                         <th> Month</th>
                         <th> Amount </th>
@@ -119,8 +119,8 @@
                     {% endfor %}
                 </table>
                 <!-- Table for Expenses by Category -->
-                <h3> Expenses by Category</h3>
-                    <table>
+                <h3>Expenses by Category <button style="display: inline;" onclick="revealByCategory()">&#9660;</button></h3>
+                    <table id="byCategory" style="display: none">
                         <tr>
                             <th> Category</th>
                             <th> Amount </th>
@@ -140,6 +140,25 @@
         </div>
     </div>
 </div>
+<script>
+function revealByMonth() {
+    var x = document.getElementById("byMonth");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+  }
+
+function revealByCategory() {
+    var x = document.getElementById("byCategory");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+  }
+</script>
 
 
 {% endblock %}
