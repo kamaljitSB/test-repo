@@ -111,7 +111,8 @@ def update(ID):
         amount = float(request.form['amount'])
         date = request.form['date']
     except ValueError:
-        return redirect(url_for("index"))
+        flash("Please enter a valid number for expense amount")
+        return redirect(url_for("edit", ID=ID))
     except KeyError:
         return redirect(url_for("index"))
 
