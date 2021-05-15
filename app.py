@@ -13,23 +13,32 @@ balance_csv = "data.csv"
 
 
 def create_csv(balance, budget):
-        with open(balance_csv, 'w', newline = '') as f:
-            writer = csv.writer(f)
-            rows = [balance, budget]
+    """
+    Creates data.csv for storing balance and budget
+    :param balance: balance to be updated
+    :type balance: float
 
-            fields = ["Balance", "Budget"]
+    :param budget: budget to be updated
+    :type budget: float
+    """
+    with open(balance_csv, 'w', newline = '') as f:
+        writer = csv.writer(f)
+        rows = [balance, budget]
+
+        fields = ["Balance", "Budget"]
             
-            # Writes fields and rows to csv
-            writer.writerow(fields)
-            writer.writerow(rows)
+        # Writes fields and rows to csv
+        writer.writerow(fields)
+        writer.writerow(rows)
 
 
 def add_to_csv(balance, budget):
-    """ Add balance and budget to the csv file
-
-    :param balance: balance that to be updated
+    """ 
+    Adds balance and budget to the csv file
+    :param balance: balance to be updated
     :type balance: float
-    :param budget: budget that to be updated
+
+    :param budget: budget to be updated
     :type budget: float
     """
     # Appends to data.csv instead of writing, which would replace existing entries
@@ -40,8 +49,11 @@ def add_to_csv(balance, budget):
 
 
 def from_csv(csv_file):
-    """ Load the balance and budget from the csv file 
-    
+    """
+    Loads balance and budget from the csv file 
+    :param csv_file: csv file with balance/budget
+    :type csv_file: str
+
     :return: Latest balance and budget from the csv file
     :rtype: dict
     """
@@ -56,8 +68,8 @@ def from_csv(csv_file):
                 
 
 def list_all_expenses():
-    """ List all expenses in the csv file
-
+    """ 
+    Lists all expenses in the expenses csv file
     :return: All expenses records
     :rtype: dict
     """
@@ -67,8 +79,8 @@ def list_all_expenses():
     
 
 def display_expense_by_month():
-    """ Summarize all expesnses by month 
-
+    """ 
+    Summarize all expesnses by month 
     :return: All expenses subtotal in last 12 months
     :rtype: dict
     """
@@ -78,8 +90,8 @@ def display_expense_by_month():
 
 
 def display_expense_by_category():
-    """ Summarize all expenses by category
-
+    """ 
+    Summarize all expenses by category
     :return: All expenses subtotal by category in last 12 months, with percentage
     :rtype: dict
     """
@@ -89,7 +101,10 @@ def display_expense_by_category():
 
 
 def delete_expense(ID):
-    """ Delete the expense record from the list
+    """ 
+    Delete the expense record from the list
+    :param ID: ID of expense to be deleted
+    :type ID: int
 
     :return: None
     :rtype: None
@@ -103,6 +118,14 @@ def delete_expense(ID):
 
 
 def update_expense(ID, category, amount, date):
+    """ 
+    Updates the specified expense
+    :param ID: ID of expense to be updated
+    :type ID: int
+    
+    :return: None
+    :rtype: None
+    """
     EM = ExpenseManager()
     EM.from_csv(expense_csv)
 
