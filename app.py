@@ -150,8 +150,27 @@ def index():
 
 @app.route("/delete/<int:ID>")
 def delete(ID):
+    EM = ExpenseManager()
+    EM.from_csv(expense_csv)
+    expense = EM.get_details(ID)
+    
+    category = getattr(expense, "_Category")
+    amount = getattr(expense, "_Amount")
+    date = getattr(expense, "_Date")
+
+    # Adds expense amount back to balance
+    bal_dict=from_csv(balance_csv)
+    bal_dict["balance"] = float(bal_dict["balance"]) + float(amount)
+
+    # Save expense
+    EM.to_csv(expense_csv)
+
+    # Save balance, budget
+    add_to_csv(bal_dict["balance"], bal_dict["budget"])
+
     delete_expense(ID)
     flash(f'Expense #{ID} has been deleted!')
+    flash(f'${amount} added to balance')
     return redirect(url_for("index"))
 
 
@@ -230,6 +249,7 @@ def expense():
         return redirect(url_for("index"))
 
     flash(f'Expense #{Next_ID} has been added!')
+    flash(f'${expense.Amount} deducted from balance')
     return redirect(url_for("index"))
 
 
