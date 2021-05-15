@@ -15,7 +15,8 @@ def test_home_route(client):
     # Checks if correct html page has loaded
     assert b'Balance' in req.data
     assert b'Budget' in req.data
-    assert b'Add expense' in req.data
+    assert b'Expenses' in req.data
+    assert b'Analysis' in req.data
 
     # Checks that route loads with no errors
     assert req.status_code == 200
