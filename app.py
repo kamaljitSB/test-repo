@@ -219,10 +219,12 @@ def update(ID):
         flash(f'${float(amount_to_change)} deducted from balance')
 
     # Adds to balance (expense amount decreased)
-    if updated_expense < original_expense:
+    elif updated_expense < original_expense:
         amount_to_change = original_expense - updated_expense
         updated_balance = original_balance + amount_to_change
         flash(f'${float(amount_to_change)} added to balance')
+    else:
+        updated_balance = original_balance
 
     # Save expense
     EM.to_csv(expense_csv)
