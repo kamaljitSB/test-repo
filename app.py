@@ -8,7 +8,7 @@ app = Flask(__name__)
 app.secret_key = b'ooo_5#y2L"F4Q9858z\n\xec]/'
 
 # Database filename: csv file for expense and balance/budget
-expense_csv = "Models\expense.csv"
+expense_csv = "Models/expense.csv"
 balance_csv = "data.csv"
 
 
