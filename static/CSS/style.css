@@ -89,7 +89,7 @@ button{
 
 #expenseTable {
     display: flex;
-    overflow-y: scroll;
+    overflow-y: auto;
     height: 15rem;
     width: 22.5rem;
 }
@@ -106,6 +106,34 @@ button{
 #cancelButton {
     margin-top: 21rem;
     margin-right: 210rem;
+}
+
+.notification {
+    color: #1c7bb3;
+    background-color: #fafafa;
+}
+
+.text-box {
+    border-radius:4px;
+}
+
+::-webkit-scrollbar {
+    width: 15px;
+}
+  
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+   
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888; 
+}
+  
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
 }
 
 
