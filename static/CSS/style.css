@@ -76,6 +76,10 @@ button{
     border-radius:4px;
 }
 
+#catInvert {
+    transform: scaleX(-1);
+}
+
 .expenseSection {
     margin-left: 5rem;
     width: 23rem;
@@ -95,8 +99,8 @@ button{
 
 
 #cancelButton {
-    margin-top: 18.2rem;
-    margin-left: -44.4rem;
+    margin-top: 22.8rem;
+    margin-right: 210rem;
 }
 
 .notification {
@@ -192,7 +196,6 @@ button{
 
     img {
         width:80vw;
-        height: 7.5rem;
     }
 
 
