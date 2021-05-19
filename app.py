@@ -1,8 +1,5 @@
 from flask import Flask, request, render_template, url_for, redirect, flash
 import csv
-import pandas as pd
-import matplotlib.pyplot as plt
-import numpy as np 
 from Models.expense import Expense
 from Models.expense_manager import ExpenseManager
 
