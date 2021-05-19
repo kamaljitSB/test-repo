@@ -57,15 +57,6 @@ body {
     color: #fafafa;
 }
 
-#titleContainer {
-    display: flex;
-    margin-left: 8rem;
-    padding-top: 25px;
-    justify-content: space-around;
-    width: 8rem;
-    height: 10rem;
-}
-
 button:hover{
     color: #e9c46a;
 }
@@ -74,10 +65,6 @@ button{
     border: none;
     color:#DC4B19;
     border-radius:4px;
-}
-
-#catInvert {
-    transform: scaleX(-1);
 }
 
 .expenseSection {
