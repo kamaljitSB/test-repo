@@ -1,5 +1,8 @@
 from flask import Flask, request, render_template, url_for, redirect, flash
 import csv
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np 
 from Models.expense import Expense
 from Models.expense_manager import ExpenseManager
 
@@ -95,6 +98,7 @@ def display_expense_by_category():
     :return: All expenses subtotal by category in last 12 months, with percentage
     :rtype: dict
     """
+    
     EM = ExpenseManager()
     EM.from_csv(expense_csv)
     return EM.by_category()
@@ -325,3 +329,4 @@ def balanceBudget():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
